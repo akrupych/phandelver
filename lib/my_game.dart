@@ -6,7 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:phandelver/components/my_camera_component.dart';
+import 'package:phandelver/components/camera2.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
   late Camera2 camera2;
