@@ -2,14 +2,14 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 
-class HexMap extends SpriteComponent {
+class VerticalHexMap extends SpriteComponent {
   late Vector2 hex0Center;
   bool isNextDown;
   bool isTopFlat;
   late double r;
   late double R;
 
-  HexMap({
+  VerticalHexMap({
     required super.sprite,
     required Vector2 hex0TopLeft,
     required Vector2 hex0bottomRight,
@@ -22,6 +22,15 @@ class HexMap extends SpriteComponent {
     );
     R = hex0TopLeft.distanceTo(hex0bottomRight) / 2;
     r = R * sqrt(3) / 2;
+  }
+
+  Vector2 getHexCenter(int hexX, int hexY) {
+    final result = Vector2(
+        hex0Center.x + hexX * 1.5 * R,
+        hex0Center.y + hexY * 2 * r
+    );
+    if (hexX.isOdd) result.y += isNextDown ? r : -r;
+    return result;
   }
 
   @override

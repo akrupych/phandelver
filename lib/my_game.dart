@@ -6,12 +6,12 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:phandelver/components/hex_map.dart';
+import 'package:phandelver/components/vertical_hex_map.dart';
 import 'package:phandelver/components/my_camera.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
   late MyCamera myCamera;
-  late SpriteComponent map;
+  late VerticalHexMap map;
 
   late double startZoom;
   late double minZoom;
@@ -19,7 +19,7 @@ class MyGame extends FlameGame with ScaleDetector {
 
   @override
   FutureOr<void> onLoad() async {
-    map = HexMap(
+    map = VerticalHexMap(
       sprite: await Sprite.load("sword_coast.jpg"),
       hex0TopLeft: Vector2(162, 105),
       hex0bottomRight: Vector2(234, 229),
@@ -32,7 +32,7 @@ class MyGame extends FlameGame with ScaleDetector {
       ..center = map.center;
     final hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
       ..anchor = Anchor.center
-      ..position = Vector2(198, 167);
+      ..position = map.getHexCenter(4, 13);
     final world = World(children: [table, map, hero]);
     myCamera = MyCamera(world: world);
     addAll([world, myCamera]);
@@ -45,8 +45,8 @@ class MyGame extends FlameGame with ScaleDetector {
     final scaleY = myCamera.height / map.height - 0.01;
     minZoom = min(scaleX, scaleY);
     maxZoom = minZoom * 10;
-    // camera2.position = map.center;
-    // camera2.zoom = minZoom;
+    myCamera.position = map.getHexCenter(4, 13);
+    // myCamera.zoom = minZoom;
   }
 
   void updateCameraBounds() {
