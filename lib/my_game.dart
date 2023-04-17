@@ -19,12 +19,9 @@ class MyGame extends FlameGame with ScaleDetector {
 
   @override
   FutureOr<void> onLoad() async {
-    map = VerticalHexMap(
-      sprite: await Sprite.load("sword_coast.jpg"),
-      hex0TopLeft: Vector2(162, 105),
-      hex0bottomRight: Vector2(234, 229),
-      isNextDown: false,
-      isTopFlat: true,
+    map = await VerticalHexMap.load(
+      imageFile: "sword_coast.jpg",
+      jsonFile: "sword_coast.json",
     );
     final table = SpriteComponent(sprite: await Sprite.load("table.jpg"))
       ..scale = Vector2(4, 4)
@@ -33,7 +30,20 @@ class MyGame extends FlameGame with ScaleDetector {
     final hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
       ..anchor = Anchor.center
       ..position = map.getHexCenter(4, 13);
-    final world = World(children: [table, map, hero]);
+    final flagSprite = await Sprite.load("flag.png");
+    final flags = map.places.map((e) => SpriteComponent(
+      sprite: flagSprite,
+      anchor: Anchor.center,
+      position: map.getHexCenter(e.x, e.y),
+    )..setAlpha(e.isHidden ? 128 : 255));
+    final world = World(
+      children: [
+        table,
+        map,
+        ...flags,
+        hero,
+      ],
+    );
     myCamera = MyCamera(world: world);
     addAll([world, myCamera]);
     initZoomLevels();
@@ -46,7 +56,7 @@ class MyGame extends FlameGame with ScaleDetector {
     minZoom = min(scaleX, scaleY);
     maxZoom = minZoom * 10;
     myCamera.position = map.getHexCenter(4, 13);
-    // myCamera.zoom = minZoom;
+    myCamera.zoom = 0.5;
   }
 
   void updateCameraBounds() {

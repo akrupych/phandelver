@@ -1,0 +1,83 @@
+{
+  "hex0": {
+    "topLeftX": 162,
+    "topLeftY": 105,
+    "bottomRightX": 234,
+    "bottomRightY": 229
+  },
+  "isHex1Up": true,
+  "places": [
+    {
+      "name": "Neverwinter",
+      "x": 4,
+      "y": 13,
+      "tags": ["city"]
+    },
+    {
+      "name": "Phandalin",
+      "x": 12,
+      "y": 21,
+      "tags": ["town"]
+    },
+    {
+      "name": "Thundertree",
+      "x": 8,
+      "y": 12,
+      "tags": ["ruins"]
+    },
+    {
+      "name": "Conyberry",
+      "x": 19,
+      "y": 14,
+      "tags": ["ruins"]
+    },
+    {
+      "name": "Old Owl Well",
+      "x": 21,
+      "y": 16,
+      "tags": ["ruins"]
+    },
+    {
+      "name": "Leilon",
+      "x": 8,
+      "y": 24,
+      "tags": ["ruins"]
+    },
+    {
+      "name": "Mount Hotenow",
+      "x": 6,
+      "y": 7,
+      "tags": ["peak"]
+    },
+    {
+      "name": "Icespire Peak",
+      "x": 18,
+      "y": 20,
+      "tags": ["peak"]
+    },
+    {
+      "name": "Cragmaw Hideout",
+      "x": 9,
+      "y": 19,
+      "tags": ["point of interest", "hidden"]
+    },
+    {
+      "name": "Agatha's Lair",
+      "x": 18,
+      "y": 14,
+      "tags": ["point of interest", "hidden"]
+    },
+    {
+      "name": "Wywern Tor",
+      "x": 21,
+      "y": 18,
+      "tags": ["point of interest", "hidden"]
+    },
+    {
+      "name": "Wave Echo Cave",
+      "x": 15,
+      "y": 21,
+      "tags": ["point of interest", "hidden"]
+    }
+  ]
+}
