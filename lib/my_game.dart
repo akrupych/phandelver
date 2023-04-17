@@ -23,7 +23,10 @@ class MyGame extends FlameGame with ScaleDetector {
       ..scale = Vector2(4, 4)
       ..angle = 0.1
       ..center = map.center;
-    final world = World(children: [table, map]);
+    final hero = await loadSpriteComponent("hero.webp")
+      ..anchor = Anchor.center
+      ..position = Vector2(198, 167);
+    final world = World(children: [table, map, hero]);
     camera2 = Camera2(world: world);
     addAll([world, camera2]);
     initZoomLevels();
@@ -38,8 +41,8 @@ class MyGame extends FlameGame with ScaleDetector {
     final scaleY = camera2.height / map.height - 0.01;
     minZoom = min(scaleX, scaleY);
     maxZoom = minZoom * 10;
-    camera2.position = map.center;
-    camera2.zoom = minZoom;
+    // camera2.position = map.center;
+    // camera2.zoom = minZoom;
   }
 
   void updateCameraBounds() {
