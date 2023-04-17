@@ -6,10 +6,10 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
-import 'package:phandelver/components/camera2.dart';
+import 'package:phandelver/components/my_camera.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
-  late Camera2 camera2;
+  late MyCamera myCamera;
   late SpriteComponent map;
 
   late double startZoom;
@@ -27,8 +27,8 @@ class MyGame extends FlameGame with ScaleDetector {
       ..anchor = Anchor.center
       ..position = Vector2(198, 167);
     final world = World(children: [table, map, hero]);
-    camera2 = Camera2(world: world);
-    addAll([world, camera2]);
+    myCamera = MyCamera(world: world);
+    addAll([world, myCamera]);
     initZoomLevels();
     updateCameraBounds();
   }
@@ -37,8 +37,8 @@ class MyGame extends FlameGame with ScaleDetector {
       SpriteComponent.fromImage(await images.load(fileName));
 
   void initZoomLevels() {
-    final scaleX = camera2.width / map.width - 0.01;
-    final scaleY = camera2.height / map.height - 0.01;
+    final scaleX = myCamera.width / map.width - 0.01;
+    final scaleY = myCamera.height / map.height - 0.01;
     minZoom = min(scaleX, scaleY);
     maxZoom = minZoom * 10;
     // camera2.position = map.center;
@@ -46,9 +46,9 @@ class MyGame extends FlameGame with ScaleDetector {
   }
 
   void updateCameraBounds() {
-    final cameraWidth = camera2.width / camera2.zoom;
-    final cameraHeight = camera2.height / camera2.zoom;
-    camera2.setBounds(Rectangle.fromLTRB(
+    final cameraWidth = myCamera.width / myCamera.zoom;
+    final cameraHeight = myCamera.height / myCamera.zoom;
+    myCamera.setBounds(Rectangle.fromLTRB(
       cameraWidth / 2,
       cameraHeight / 2,
       map.width - cameraWidth / 2,
@@ -58,7 +58,7 @@ class MyGame extends FlameGame with ScaleDetector {
 
   @override
   void onScaleStart(info) {
-    startZoom = camera2.zoom;
+    startZoom = myCamera.zoom;
   }
 
   @override
@@ -66,10 +66,10 @@ class MyGame extends FlameGame with ScaleDetector {
     final currentScale = info.scale.global;
     if (!currentScale.isIdentity()) {
       final newZoom = startZoom * currentScale.y;
-      camera2.zoom = clampDouble(newZoom, minZoom, maxZoom);
+      myCamera.zoom = clampDouble(newZoom, minZoom, maxZoom);
       updateCameraBounds();
     } else {
-      camera2.moveBy(-info.delta.viewport / camera2.zoom);
+      myCamera.moveBy(-info.delta.viewport / myCamera.zoom);
     }
   }
 }

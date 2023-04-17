@@ -1,8 +1,8 @@
 import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 
-class Camera2 extends CameraComponent {
-  Camera2({required super.world});
+class MyCamera extends CameraComponent {
+  MyCamera({required super.world});
 
   set position(Vector2 value) {
     viewfinder.position = value;
