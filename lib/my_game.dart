@@ -6,6 +6,7 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:phandelver/components/hex_map.dart';
 import 'package:phandelver/components/my_camera.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
@@ -18,12 +19,18 @@ class MyGame extends FlameGame with ScaleDetector {
 
   @override
   FutureOr<void> onLoad() async {
-    map = await loadSpriteComponent("sword_coast.jpg");
-    final table = await loadSpriteComponent("table.jpg")
+    map = HexMap(
+      sprite: await Sprite.load("sword_coast.jpg"),
+      hex0TopLeft: Vector2(162, 105),
+      hex0bottomRight: Vector2(234, 229),
+      isNextDown: false,
+      isTopFlat: true,
+    );
+    final table = SpriteComponent(sprite: await Sprite.load("table.jpg"))
       ..scale = Vector2(4, 4)
       ..angle = 0.1
       ..center = map.center;
-    final hero = await loadSpriteComponent("hero.webp")
+    final hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
       ..anchor = Anchor.center
       ..position = Vector2(198, 167);
     final world = World(children: [table, map, hero]);
@@ -32,9 +39,6 @@ class MyGame extends FlameGame with ScaleDetector {
     initZoomLevels();
     updateCameraBounds();
   }
-
-  Future<SpriteComponent> loadSpriteComponent(String fileName) async =>
-      SpriteComponent.fromImage(await images.load(fileName));
 
   void initZoomLevels() {
     final scaleX = myCamera.width / map.width - 0.01;
