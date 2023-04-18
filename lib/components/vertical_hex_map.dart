@@ -5,7 +5,7 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:phandelver/model/place.dart';
-import 'package:phandelver/utils.dart';
+import 'package:phandelver/utils/vector_2_int.dart';
 
 class VerticalHexMap extends SpriteComponent {
   late Vector2 hex0Center;
@@ -39,16 +39,14 @@ class VerticalHexMap extends SpriteComponent {
     );
     final places = (json["places"] as List).map((e) {
       final anchor = e["titleAnchor"];
-      final tags = e["tags"] as List;
       final hex = map.getHex(e["x"], e["y"]);
       return Place(
         name: e["name"],
-        x: e["x"],
-        y: e["y"],
+        position: Vector2Int(e["x"], e["y"]).toVector2(),
         titleAnchor: anchor != null ? Anchor.valueOf(anchor) : Anchor.center,
-        tags: tags.cast<String>(),
-        hexX: hex.x.floor(),
-        hexY: hex.y.floor(),
+        type: e["type"],
+        hidden: e["hidden"],
+        hex: Vector2Int(hex.x, hex.y),
       );
     }).toList();
     map.places = places;

@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:ui';
 
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
@@ -69,15 +68,10 @@ Anchor revertAnchor(Anchor anchor) => Anchor(
       0.5 - (anchor.y - 0.5),
     );
 
-class Vector2Int {
-  int x;
-  int y;
-
-  Vector2Int(this.x, this.y);
-
-  Vector2 toVector2() => Vector2(x.toDouble(), y.toDouble());
-}
-
-extension Vector2Ext on Vector2 {
-  Vector2Int toVector2Int() => Vector2Int(x.round(), y.round());
+Vector2 getPointToAnchor(SpriteComponent dst, Anchor anchor) {
+  final bounds = dst.toRect();
+  return Vector2(
+    bounds.left + anchor.x * bounds.width,
+    bounds.top + anchor.y * bounds.height,
+  );
 }

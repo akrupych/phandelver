@@ -9,7 +9,7 @@ import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
 import 'package:phandelver/components/vertical_hex_map.dart';
 import 'package:phandelver/components/my_camera.dart';
-import 'package:phandelver/utils.dart';
+import 'package:phandelver/utils/utils.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
   late MyCamera myCamera;
@@ -32,23 +32,32 @@ class MyGame extends FlameGame with ScaleDetector {
     final hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
       ..anchor = Anchor.center
       ..position = map.getHexCenter(4, 13);
-    final flagSprite = await Sprite.load("flag.png");
-    final flags = map.places.map((e) => SpriteComponent(
-          sprite: flagSprite,
-          anchor: Anchor.center,
-          position: map.getHexCenter(e.hexX, e.hexY),
-        )..setAlpha(e.isHidden ? 128 : 255));
-    final titles = map.places
-        .where((element) => element.isHidden)
-        .map((e) => TextComponent(text: e.name, textRenderer: textPaint)
-          ..anchor = revertAnchor(e.titleAnchor)
-          ..position = map.getHexEdge(e.hexX, e.hexY, e.titleAnchor));
+    // final flagSprite = await Sprite.load("flag.png");
+    // final flags = map.places.map((e) => SpriteComponent(
+    //       sprite: flagSprite,
+    //       anchor: Anchor.center,
+    //       position: map.getHexCenter(e.hexX, e.hexY),
+    //     )..setAlpha(e.hidden ? 128 : 255));
+    final poiSprite = await Sprite.load("poi.png");
+    List<SpriteComponent> poiIcons = [];
+    List<TextComponent> poiTitles = [];
+    map.places.where((element) => element.hidden).forEach((e) {
+      final spriteComponent = SpriteComponent(
+        sprite: poiSprite,
+        anchor: Anchor.center,
+        position: e.position,
+      );
+      poiIcons.add(spriteComponent);
+      poiTitles.add(TextComponent(text: e.name, textRenderer: textPaint)
+        ..anchor = revertAnchor(e.titleAnchor)
+        ..position = getPointToAnchor(spriteComponent, e.titleAnchor));
+    });
     final world = World(
       children: [
         table,
         map,
-        ...flags,
-        ...titles,
+        ...poiIcons,
+        ...poiTitles,
         hero,
       ],
     );

@@ -11,77 +11,97 @@
       "name": "Neverwinter",
       "x": 578,
       "y": 1751,
-      "tags": ["city"]
+      "type": "city",
+      "hidden": false
     },
     {
       "name": "Phandalin",
       "x": 1517,
       "y": 2822,
-      "tags": ["town"]
+      "type": "town",
+      "hidden": false
     },
     {
       "name": "Thundertree",
       "x": 1088,
       "y": 1691,
-      "tags": ["ruins"]
+      "type": "ruins",
+      "hidden": false
     },
     {
       "name": "Conyberry",
       "x": 2219,
       "y": 1923,
-      "tags": ["ruins"]
+      "type": "ruins",
+      "hidden": false
     },
     {
       "name": "Old Owl Well",
       "x": 2453,
       "y": 2220,
-      "tags": ["ruins"]
+      "type": "ruins",
+      "hidden": false
     },
     {
       "name": "Leilon",
       "x": 1103,
       "y": 3173,
-      "tags": ["ruins"]
+      "type": "ruins",
+      "hidden": false
     },
     {
       "name": "Mount Hotenow",
       "x": 905,
       "y": 1040,
-      "tags": ["peak"]
+      "type": "peak",
+      "hidden": false
     },
     {
       "name": "Icespire Peak",
       "x": 2096,
       "y": 2661,
-      "tags": ["peak"]
+      "type": "peak",
+      "hidden": false
     },
     {
       "name": "Cragmaw Hideout",
       "x": 1143,
       "y": 2607,
       "titleAnchor": "topCenter",
-      "tags": ["point of interest", "hidden"]
+      "type": "poi",
+      "hidden": true
+    },
+    {
+      "name": "Cragmaw Castle",
+      "x": 1485,
+      "y": 2204,
+      "titleAnchor": "topCenter",
+      "type": "poi",
+      "hidden": true
     },
     {
       "name": "Agatha's Lair",
       "x": 2102,
       "y": 1902,
       "titleAnchor": "topCenter",
-      "tags": ["point of interest", "hidden"]
+      "type": "poi",
+      "hidden": true
     },
     {
       "name": "Wywern Tor",
       "x": 2456,
       "y": 2478,
       "titleAnchor": "topLeft",
-      "tags": ["point of interest", "hidden"]
+      "type": "poi",
+      "hidden": true
     },
     {
       "name": "Wave Echo Cave",
       "x": 1803,
       "y": 2802,
       "titleAnchor": "topCenter",
-      "tags": ["point of interest", "hidden"]
+      "type": "poi",
+      "hidden": true
     }
   ]
 }

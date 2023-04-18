@@ -1,28 +1,20 @@
 import 'package:flame/components.dart';
+import 'package:phandelver/utils/vector_2_int.dart';
 
 class Place {
   String name;
-  int x;
-  int y;
+  Vector2 position;
   Anchor titleAnchor;
-  List<String> tags;
-  int hexX;
-  int hexY;
-
-  bool get isHidden => tags.contains("hidden");
+  String type;
+  bool hidden;
+  Vector2Int hex;
 
   Place({
     required this.name,
-    required this.x,
-    required this.y,
+    required this.position,
     required this.titleAnchor,
-    required this.tags,
-    required this.hexX,
-    required this.hexY,
+    required this.type,
+    required this.hidden,
+    required this.hex,
   });
-
-  @override
-  String toString() {
-    return 'Place{name: $name, x: $x, y: $y, titleAnchor: $titleAnchor, tags: $tags, hexX: $hexX, hexY: $hexY}';
-  }
 }
