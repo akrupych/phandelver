@@ -6,8 +6,10 @@ import 'package:flame/components.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
+import 'package:flutter/material.dart';
 import 'package:phandelver/components/vertical_hex_map.dart';
 import 'package:phandelver/components/my_camera.dart';
+import 'package:phandelver/utils.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
   late MyCamera myCamera;
@@ -32,15 +34,21 @@ class MyGame extends FlameGame with ScaleDetector {
       ..position = map.getHexCenter(4, 13);
     final flagSprite = await Sprite.load("flag.png");
     final flags = map.places.map((e) => SpriteComponent(
-      sprite: flagSprite,
-      anchor: Anchor.center,
-      position: map.getHexCenter(e.x, e.y),
-    )..setAlpha(e.isHidden ? 128 : 255));
+          sprite: flagSprite,
+          anchor: Anchor.center,
+          position: map.getHexCenter(e.x, e.y),
+        )..setAlpha(e.isHidden ? 128 : 255));
+    final titles = map.places
+        .where((element) => element.isHidden)
+        .map((e) => TextComponent(text: e.name, textRenderer: textPaint)
+          ..anchor = revertAnchor(e.resolveTitleAnchor())
+          ..position = map.getHexEdge(e.x, e.y, e.resolveTitleAnchor()));
     final world = World(
       children: [
         table,
         map,
         ...flags,
+        ...titles,
         hero,
       ],
     );
@@ -49,6 +57,19 @@ class MyGame extends FlameGame with ScaleDetector {
     initZoomLevels();
     updateCameraBounds();
   }
+
+  final textPaint = TextPaint(
+    style: TextStyle(
+      fontSize: 54,
+      fontFamily: "Mentor",
+      color: Colors.black,
+      shadows: outlinedText(
+        strokeWidth: 5,
+        strokeColor: const Color(0xfffdf4da),
+        precision: 2,
+      ),
+    ),
+  );
 
   void initZoomLevels() {
     final scaleX = myCamera.width / map.width - 0.01;

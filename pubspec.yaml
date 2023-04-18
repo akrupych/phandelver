@@ -21,3 +21,7 @@ flutter:
   assets:
     - assets/images/
     - assets/text/
+  fonts:
+    - family: Mentor
+      fonts:
+        - asset: assets/fonts/mentor.otf

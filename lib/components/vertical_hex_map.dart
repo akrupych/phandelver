@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:phandelver/model/place.dart';
 
 class VerticalHexMap extends SpriteComponent {
   late Vector2 hex0Center;
@@ -61,47 +62,16 @@ class VerticalHexMap extends SpriteComponent {
     return result;
   }
 
-  @override
-  String toString() {
-    return 'VerticalHexMap{hex0Center: $hex0Center, isHex1Up: $isHex1Up, r: $r, R: $R, places: $places}';
-  }
-}
-
-class Place {
-  String name;
-  int x;
-  int y;
-  List<String> tags;
-
-  bool get isHidden => tags.contains("hidden");
-
-  Place({
-    required this.name,
-    required this.x,
-    required this.y,
-    required this.tags,
-  });
-
-  Map<String, dynamic> toMap() {
-    return {
-      'name': this.name,
-      'x': this.x,
-      'y': this.y,
-      'tags': this.tags,
-    };
-  }
-
-  factory Place.fromMap(Map<String, dynamic> map) {
-    return Place(
-      name: map['name'] as String,
-      x: map['x'] as int,
-      y: map['y'] as int,
-      tags: (map['tags'] as List).cast<String>(),
+  Vector2 getHexEdge(int hexX, int hexY, Anchor anchor) {
+    final center = getHexCenter(hexX, hexY);
+    return Vector2(
+      center.x + (anchor.x - 0.5) * 2 * r,
+      center.y + (anchor.y - 0.5) * 2 * r,
     );
   }
 
   @override
   String toString() {
-    return 'Place{name: $name, x: $x, y: $y, tags: $tags}';
+    return 'VerticalHexMap{hex0Center: $hex0Center, isHex1Up: $isHex1Up, r: $r, R: $R, places: $places}';
   }
 }

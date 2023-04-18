@@ -59,24 +59,28 @@
       "name": "Cragmaw Hideout",
       "x": 9,
       "y": 19,
+      "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Agatha's Lair",
       "x": 18,
       "y": 14,
+      "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Wywern Tor",
       "x": 21,
       "y": 18,
+      "titleAnchor": "topLeft",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Wave Echo Cave",
       "x": 15,
       "y": 21,
+      "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     }
   ]
