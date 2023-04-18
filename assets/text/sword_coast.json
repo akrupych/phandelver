@@ -2,84 +2,84 @@
   "hex0": {
     "topLeftX": 162,
     "topLeftY": 105,
-    "bottomRightX": 234,
+    "bottomRightX": 233,
     "bottomRightY": 229
   },
-  "isHex1Up": true,
+  "isHex1Up": false,
   "places": [
     {
       "name": "Neverwinter",
-      "x": 4,
-      "y": 13,
+      "x": 578,
+      "y": 1751,
       "tags": ["city"]
     },
     {
       "name": "Phandalin",
-      "x": 12,
-      "y": 21,
+      "x": 1517,
+      "y": 2822,
       "tags": ["town"]
     },
     {
       "name": "Thundertree",
-      "x": 8,
-      "y": 12,
+      "x": 1088,
+      "y": 1691,
       "tags": ["ruins"]
     },
     {
       "name": "Conyberry",
-      "x": 19,
-      "y": 14,
+      "x": 2219,
+      "y": 1923,
       "tags": ["ruins"]
     },
     {
       "name": "Old Owl Well",
-      "x": 21,
-      "y": 16,
+      "x": 2453,
+      "y": 2220,
       "tags": ["ruins"]
     },
     {
       "name": "Leilon",
-      "x": 8,
-      "y": 24,
+      "x": 1103,
+      "y": 3173,
       "tags": ["ruins"]
     },
     {
       "name": "Mount Hotenow",
-      "x": 6,
-      "y": 7,
+      "x": 905,
+      "y": 1040,
       "tags": ["peak"]
     },
     {
       "name": "Icespire Peak",
-      "x": 18,
-      "y": 20,
+      "x": 2096,
+      "y": 2661,
       "tags": ["peak"]
     },
     {
       "name": "Cragmaw Hideout",
-      "x": 9,
-      "y": 19,
+      "x": 1143,
+      "y": 2607,
       "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Agatha's Lair",
-      "x": 18,
-      "y": 14,
+      "x": 2102,
+      "y": 1902,
       "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Wywern Tor",
-      "x": 21,
-      "y": 18,
+      "x": 2456,
+      "y": 2478,
       "titleAnchor": "topLeft",
       "tags": ["point of interest", "hidden"]
     },
     {
       "name": "Wave Echo Cave",
-      "x": 15,
-      "y": 21,
+      "x": 1803,
+      "y": 2802,
       "titleAnchor": "topCenter",
       "tags": ["point of interest", "hidden"]
     }

@@ -36,13 +36,13 @@ class MyGame extends FlameGame with ScaleDetector {
     final flags = map.places.map((e) => SpriteComponent(
           sprite: flagSprite,
           anchor: Anchor.center,
-          position: map.getHexCenter(e.x, e.y),
+          position: map.getHexCenter(e.hexX, e.hexY),
         )..setAlpha(e.isHidden ? 128 : 255));
     final titles = map.places
         .where((element) => element.isHidden)
         .map((e) => TextComponent(text: e.name, textRenderer: textPaint)
-          ..anchor = revertAnchor(e.resolveTitleAnchor())
-          ..position = map.getHexEdge(e.x, e.y, e.resolveTitleAnchor()));
+          ..anchor = revertAnchor(e.titleAnchor)
+          ..position = map.getHexEdge(e.hexX, e.hexY, e.titleAnchor));
     final world = World(
       children: [
         table,
@@ -77,7 +77,7 @@ class MyGame extends FlameGame with ScaleDetector {
     minZoom = min(scaleX, scaleY);
     maxZoom = minZoom * 10;
     myCamera.position = map.getHexCenter(4, 13);
-    myCamera.zoom = 0.5;
+    myCamera.zoom = 0.3;
   }
 
   void updateCameraBounds() {
