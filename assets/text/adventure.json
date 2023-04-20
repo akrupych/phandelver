@@ -1,0 +1,60 @@
+{
+  "start": {
+    "x": 578,
+    "y": 1751
+  },
+  "scenes": [
+    {
+      "id": "b4c9ad02-1cfd-4164-8127-a0fa9e3e0738",
+      "text": "In the city of Neverwinter, a dwarf named Gundren Rockseeker asked you to bring a wagonload of provisions to the rough-and-tumble settlement of Phandalin, a couple of days’ travel southeast of the city. Gundren was clearly excited and more than a little secretive about his reasons for the trip, saying only that he and his brothers had found “something big,” and that he’d pay you ten gold pieces each for escorting his supplies safely to Barthen’s Provisions, a trading post in Phandalin. He then set out ahead of you on horse, along with a warrior escort named Sildar Hallwinter, claiming he needed to arrive early to “take care of business.”",
+      "actions": [
+        {
+          "id": "54ec3902-c6de-4e9a-a9df-3f01b6893ba0",
+          "text": "Where's Phandalin?"
+        }
+      ]
+    },
+    {
+      "id": "53dc120a-4798-4e22-95b5-0d32741279bc",
+      "text": "You’ve spent the last few days following the High Road south from Neverwinter, and you’ve just recently veered east along the Triboar Trail. You’ve encountered no trouble so far, but this territory can be dangerous. Bandits and outlaws have been known to lurk along the trail.",
+      "position": {
+        "x": 1055,
+        "y": 2687
+      },
+      "actions": [
+        {
+          "id": "2af46717-c22f-4272-a151-d973bbcbee33",
+          "text": "Slow down, move on guard"
+        }
+      ]
+    },
+    {
+      "id": "f7fcd402-d07d-4315-a9cf-e60059566bad",
+      "text": "You’ve been on the Triboar Trail for about half a day. As you come around a bend, you spot two dead horses sprawled about fifty feet ahead of you, blocking the path. Each has several black-feathered arrows sticking out of it. The woods press close to the trail here, with a steep embankment and dense thickets on either side.",
+      "position": {
+        "x": 1271,
+        "y": 2652
+      },
+      "actions": [
+        {
+          "id": "d13f8631-0925-4222-b1fd-437721479426",
+          "text": "Investigate the scene"
+        },
+        {
+          "id": "d489c17c-3778-4f40-a884-2b2da3ae5acf",
+          "text": "Look around cautiously"
+        }
+      ]
+    },
+    {
+      "id": "482ee88a-acc9-44a5-908a-2e672d99ac7b",
+      "text": "You identify the horses as belonging to Gundren Rockseeker and Sildar Hallwinter. They’ve been dead about a day, and it’s clear that arrows killed the horses.",
+      "actions": [
+        {
+          "id": "abd53fbe-64ff-4069-a988-8306c087a3ba",
+          "text": "Who could've done this?"
+        }
+      ]
+    }
+  ]
+}

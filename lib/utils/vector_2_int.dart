@@ -6,6 +6,8 @@ class Vector2Int {
 
   Vector2Int(this.x, this.y);
 
+  Vector2Int.fromJson(json) : this(json["x"], json["y"]);
+
   Vector2 toVector2() => Vector2(x.toDouble(), y.toDouble());
 }
 

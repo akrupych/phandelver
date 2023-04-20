@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:math';
 import 'dart:ui';
 
@@ -7,64 +8,98 @@ import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
 import 'package:flame/input.dart';
 import 'package:flutter/material.dart';
-import 'package:phandelver/components/vertical_hex_map.dart';
+import 'package:flutter/services.dart';
 import 'package:phandelver/components/my_camera.dart';
+import 'package:phandelver/components/vertical_hex_map.dart';
+import 'package:phandelver/model/adventure.dart';
+import 'package:phandelver/model/place.dart';
 import 'package:phandelver/utils/utils.dart';
+import 'package:phandelver/utils/vector_2_int.dart';
 
 class MyGame extends FlameGame with ScaleDetector {
-  late MyCamera myCamera;
+  late World world;
   late VerticalHexMap map;
+  late List<Place> places;
+  late SpriteComponent hero;
 
+  late MyCamera myCamera;
   late double startZoom;
   late double minZoom;
   late double maxZoom;
 
   @override
   FutureOr<void> onLoad() async {
-    map = await VerticalHexMap.load(
-      imageFile: "sword_coast.jpg",
-      jsonFile: "sword_coast.json",
-    );
-    final table = SpriteComponent(sprite: await Sprite.load("table.jpg"))
-      ..scale = Vector2(4, 4)
-      ..angle = 0.1
-      ..center = map.center;
-    final hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
-      ..anchor = Anchor.center
-      ..position = map.getHexCenter(4, 13);
-    // final flagSprite = await Sprite.load("flag.png");
-    // final flags = map.places.map((e) => SpriteComponent(
-    //       sprite: flagSprite,
-    //       anchor: Anchor.center,
-    //       position: map.getHexCenter(e.hexX, e.hexY),
-    //     )..setAlpha(e.hidden ? 128 : 255));
-    final poiSprite = await Sprite.load("poi.png");
-    List<SpriteComponent> poiIcons = [];
-    List<TextComponent> poiTitles = [];
-    map.places.where((element) => element.hidden).forEach((e) {
-      final spriteComponent = SpriteComponent(
-        sprite: poiSprite,
-        anchor: Anchor.center,
-        position: e.position,
-      );
-      poiIcons.add(spriteComponent);
-      poiTitles.add(TextComponent(text: e.name, textRenderer: textPaint)
-        ..anchor = revertAnchor(e.titleAnchor)
-        ..position = getPointToAnchor(spriteComponent, e.titleAnchor));
-    });
-    final world = World(
-      children: [
-        table,
-        map,
-        ...poiIcons,
-        ...poiTitles,
-        hero,
-      ],
-    );
+    loadWorld();
+    await loadMap();
+    await loadAdventure();
+    setZoomLevels();
+    updateCameraBounds();
+  }
+
+  void loadWorld() {
+    world = World();
     myCamera = MyCamera(world: world);
     addAll([world, myCamera]);
-    initZoomLevels();
-    updateCameraBounds();
+  }
+
+  FutureOr<void> loadMap() async {
+    final sprite = await Sprite.load("sword_coast.jpg");
+    final json =
+        jsonDecode(await rootBundle.loadString("assets/text/sword_coast.json"));
+    final hex0 = json["hex0"];
+    final hex0TopLeft = Vector2(
+      hex0["topLeftX"].toDouble(),
+      hex0["topLeftY"].toDouble(),
+    );
+    final hex0BottomRight = Vector2(
+      hex0["bottomRightX"].toDouble(),
+      hex0["bottomRightY"].toDouble(),
+    );
+    final isHex1Up = json["isHex1Up"];
+    map = VerticalHexMap(
+      sprite: sprite,
+      hex0TopLeft: hex0TopLeft,
+      hex0BottomRight: hex0BottomRight,
+      isHex1Up: isHex1Up,
+    );
+    places = (json["places"] as List).map((e) {
+      final anchor = e["titleAnchor"];
+      final position = Vector2Int.fromJson(e).toVector2();
+      final hex = map.getHex(position);
+      return Place(
+        name: e["name"],
+        position: position,
+        titleAnchor: anchor != null ? Anchor.valueOf(anchor) : Anchor.center,
+        type: e["type"],
+        hidden: e["hidden"],
+        hex: Vector2Int(hex.x, hex.y),
+      );
+    }).toList();
+    world.add(map);
+  }
+
+  FutureOr<void> loadAdventure() async {
+    final json =
+        jsonDecode(await rootBundle.loadString("assets/text/adventure.json"));
+    final adventure = Adventure(
+      startHex: map.getHex(Vector2Int.fromJson(json["start"]).toVector2()),
+      scenes: (json["scenes"] as List)
+          .map((e) => AdventureScene(
+                id: e["id"],
+                text: e["text"],
+                position: e["position"] != null
+                    ? Vector2Int.fromJson(e["position"])
+                    : null,
+                actions: (e["actions"] as List)
+                    .map((e) => SceneAction(id: e["id"], text: e["text"]))
+                    .toList(),
+              ))
+          .toList(),
+    );
+    hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
+      ..anchor = Anchor.center
+      ..position = map.getHexCenter(adventure.startHex);
+    map.add(hero);
   }
 
   final textPaint = TextPaint(
@@ -80,13 +115,13 @@ class MyGame extends FlameGame with ScaleDetector {
     ),
   );
 
-  void initZoomLevels() {
-    final scaleX = myCamera.width / map.width - 0.01;
-    final scaleY = myCamera.height / map.height - 0.01;
-    minZoom = min(scaleX, scaleY);
+  void setZoomLevels() {
+    final scaleX = myCamera.width / map.width;
+    final scaleY = myCamera.height / map.height;
+    minZoom = max(scaleX, scaleY);
     maxZoom = minZoom * 10;
-    myCamera.position = map.getHexCenter(4, 13);
-    myCamera.zoom = 0.3;
+    myCamera.position = hero.position;
+    myCamera.zoom = 0.5;
   }
 
   void updateCameraBounds() {
