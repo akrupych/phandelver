@@ -19,8 +19,12 @@ import 'package:phandelver/utils/vector_2_int.dart';
 class MyGame extends FlameGame with ScaleDetector {
   late World world;
   late VerticalHexMap map;
+  late Adventure adventure;
   late List<Place> places;
   late SpriteComponent hero;
+
+  final currentScene = StreamController<AdventureScene>();
+  final expandScroll = StreamController<bool>();
 
   late MyCamera myCamera;
   late double startZoom;
@@ -67,7 +71,9 @@ class MyGame extends FlameGame with ScaleDetector {
       final position = Vector2Int.fromJson(e).toVector2();
       final hex = map.getHex(position);
       return Place(
+        id: e["id"],
         name: e["name"],
+        description: e["description"],
         position: position,
         titleAnchor: anchor != null ? Anchor.valueOf(anchor) : Anchor.center,
         type: e["type"],
@@ -79,9 +85,10 @@ class MyGame extends FlameGame with ScaleDetector {
   }
 
   FutureOr<void> loadAdventure() async {
+    // parse json
     final json =
         jsonDecode(await rootBundle.loadString("assets/text/adventure.json"));
-    final adventure = Adventure(
+    adventure = Adventure(
       startHex: map.getHex(Vector2Int.fromJson(json["start"]).toVector2()),
       scenes: (json["scenes"] as List)
           .map((e) => AdventureScene(
@@ -96,13 +103,20 @@ class MyGame extends FlameGame with ScaleDetector {
               ))
           .toList(),
     );
-    hero = SpriteComponent(sprite: await Sprite.load("hero.webp"))
+    // put hero
+    hero = SpriteComponent(
+      sprite: await Sprite.load("hero.png"),
+      size: Vector2.all(map.getTokenSize),
+    )
       ..anchor = Anchor.center
       ..position = map.getHexCenter(adventure.startHex);
     map.add(hero);
+
+    overlays.add("scroll");
+    showFirstScene();
   }
 
-  final textPaint = TextPaint(
+  final poiNamePaint = TextPaint(
     style: TextStyle(
       fontSize: 54,
       fontFamily: "Mentor",
@@ -150,5 +164,36 @@ class MyGame extends FlameGame with ScaleDetector {
     } else {
       myCamera.moveBy(-info.delta.viewport / myCamera.zoom);
     }
+  }
+
+  void showFirstScene() async {
+    currentScene.add(adventure.scenes[0]);
+    Future.delayed(const Duration(seconds: 1), () {
+      expandScroll.add(true);
+      myCamera.moveBy(Vector2(0, 0.3 * size.y), speed: 1000);
+    });
+  }
+
+  void onActionTap(SceneAction action) {
+    expandScroll.add(false);
+    switch (action.id) {
+      case "54ec3902-c6de-4e9a-a9df-3f01b6893ba0":
+        // show Phandalin
+        showPlace("9c3ba4e0-c32d-4ecf-b93c-aef28fe77a1b");
+        break;
+    }
+  }
+
+  void showPlace(String id) {
+    final place = places.firstWhere((place) => place.id == id);
+    myCamera.moveTo(Vector2(place.position.x, place.position.y), speed: 2000);
+    currentScene.add(
+      AdventureScene(
+        id: place.id,
+        text: place.description,
+        actions: List.empty(),
+      ),
+    );
+    expandScroll.add(true);
   }
 }

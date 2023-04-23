@@ -8,63 +8,81 @@
   "isHex1Up": false,
   "places": [
     {
+      "id": "56e0af26-b263-4d9d-af3b-4f0193c5d74a",
       "name": "Neverwinter",
+      "description": "Neverwinter, also known as the City of Skilled Hands and the Jewel of the North, is a bustling, cultured, and cosmopolitan city-state in northwest Faerûn. Neverwinter is regarded by Volo as the most cosmopolitan and civilized city in all of Faerûn. The city is a member in good standing of the Lords' Alliance. Known for its craftsfolk and gardeners, the city's multi-colored-glass lamps, precision water clocks, exquisite jewelry, and magnificent gardens ensure the warm winters are colorful and the summers are rich with fresh fruit.",
       "x": 578,
       "y": 1751,
       "type": "city",
       "hidden": false
     },
     {
+      "id": "9c3ba4e0-c32d-4ecf-b93c-aef28fe77a1b",
       "name": "Phandalin",
+      "description": "Phandalin is a village in the Sword Coast North that enjoyed much prosperity in the 10th century DR. It was raided by orcs in 951 DR and subsequently abandoned. It was eventually resettled in the late 15th century as a frontier settlement of farmers and prospectors.",
       "x": 1517,
       "y": 2822,
       "type": "town",
       "hidden": false
     },
     {
+      "id": "d742dfd3-a402-4df2-834a-1fba5162069e",
       "name": "Thundertree",
+      "description": "",
       "x": 1088,
       "y": 1691,
       "type": "ruins",
       "hidden": false
     },
     {
+      "id": "d808d109-65d3-4e3e-90a6-23fd60d8d0e9",
       "name": "Conyberry",
+      "description": "",
       "x": 2219,
       "y": 1923,
       "type": "ruins",
       "hidden": false
     },
     {
+      "id": "6db1a8eb-c9ba-4b62-95e1-f723c2d77479",
       "name": "Old Owl Well",
+      "description": "",
       "x": 2453,
       "y": 2220,
       "type": "ruins",
       "hidden": false
     },
     {
+      "id": "6db1a8eb-c9ba-4b62-95e1-f723c2d77479",
       "name": "Leilon",
+      "description": "",
       "x": 1103,
       "y": 3173,
       "type": "ruins",
       "hidden": false
     },
     {
+      "id": "8a38a274-b038-4221-a913-2672f2812db3",
       "name": "Mount Hotenow",
+      "description": "",
       "x": 905,
       "y": 1040,
       "type": "peak",
       "hidden": false
     },
     {
+      "id": "0d9cb13f-a87d-4849-b30a-637670523172",
       "name": "Icespire Peak",
+      "description": "",
       "x": 2096,
       "y": 2661,
       "type": "peak",
       "hidden": false
     },
     {
+      "id": "ba4d1865-1d70-4803-b4f9-d2c2ae650b2d",
       "name": "Cragmaw Hideout",
+      "description": "",
       "x": 1143,
       "y": 2607,
       "titleAnchor": "topCenter",
@@ -72,7 +90,9 @@
       "hidden": true
     },
     {
+      "id": "f2fa11eb-3e9b-4606-9c1c-412a91bfa5ba",
       "name": "Cragmaw Castle",
+      "description": "",
       "x": 1485,
       "y": 2204,
       "titleAnchor": "topCenter",
@@ -80,7 +100,9 @@
       "hidden": true
     },
     {
+      "id": "d3fadda0-f380-40b1-90c5-80829271f57b",
       "name": "Agatha's Lair",
+      "description": "",
       "x": 2102,
       "y": 1902,
       "titleAnchor": "topCenter",
@@ -88,7 +110,9 @@
       "hidden": true
     },
     {
+      "id": "67065a15-fbd4-4702-9972-a40796ac6a1b",
       "name": "Wywern Tor",
+      "description": "",
       "x": 2456,
       "y": 2478,
       "titleAnchor": "topLeft",
@@ -96,7 +120,9 @@
       "hidden": true
     },
     {
+      "id": "c2f52cec-fdc5-422f-8173-17799f411d1b",
       "name": "Wave Echo Cave",
+      "description": "",
       "x": 1803,
       "y": 2802,
       "titleAnchor": "topCenter",

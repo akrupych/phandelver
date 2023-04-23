@@ -62,4 +62,6 @@ class VerticalHexMap extends SpriteComponent {
     });
     return closeHexes.first;
   }
+
+  double get getTokenSize => r * 1.8;
 }
